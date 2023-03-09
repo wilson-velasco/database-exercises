@@ -14,8 +14,8 @@ SELECT * FROM employees WHERE first_name = 'Irena' OR first_name = 'Vidya' OR fi
 
 -- Find all current or previous employees with first names 'Irena', 'Vidya', or 'Maya', using OR, and who is male. 
 -- What is the employee number of the top three results.
-SELECT * FROM employees WHERE (first_name = 'Irena' OR 'Vidya' OR 'Maya') AND gender = 'M' LIMIT 3;
--- First three emp numbers are 10397, 10821, 11327.
+SELECT * FROM employees WHERE (first_name = 'Irena' OR first_name = 'Vidya' OR first_name = 'Maya') AND gender = 'M' LIMIT 3;
+-- First three emp numbers are 10200, 10397, 10821.
 
 -- Find all unique last names that start with 'E'.
 SELECT DISTINCT last_name FROM employees WHERE last_name LIKE 'E%';
