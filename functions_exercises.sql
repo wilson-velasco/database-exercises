@@ -23,22 +23,16 @@ SELECT *, datediff(NOW(),hire_date) AS total_working_days FROM employees
 
 
 -- Find the smallest and largest current salary from the salaries table.
-SELECT MAX(salary), MIN(salary) FROM salaries WHERE to_date = '9999-01-01';
-SELECT emp_no FROM salaries WHERE salary = 158220; -- 43624
-SELECT emp_no FROM salaries WHERE salary = 38623; -- 253406
-SELECT first_name, last_name FROM employees
-	WHERE emp_no = 43624
-    ;
+SELECT MAX(salary), MIN(salary) FROM salaries
+	WHERE to_date > NOW();
 
-SELECT first_name, last_name FROM employees
-	LEFT JOIN salaries
-    ON employees.emp_no = salaries.emp_no
-    WHERE to_date >= NOW()
-    GROUP BY first_name, last_name
-    HAVING MAX(salary)
-    ;
+-- (the below is to include names)
 
-
+SELECT first_name, last_name, salary FROM employees AS e
+JOIN salaries AS s ON s.emp_no = e.emp_no
+WHERE salary IN (
+ (SELECT MIN(salary) FROM salaries WHERE to_date > NOW()),
+ (SELECT MAX(salary) FROM salaries WHERE to_date > NOW()));
 
 /* Use your knowledge of built in SQL functions to generate a username for all of the employees. 
 A username should be all lowercase, and consist of the first character of the employees first name, 
