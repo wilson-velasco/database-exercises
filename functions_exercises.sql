@@ -6,7 +6,6 @@ SELECT * FROM employees WHERE last_name LIKE 'E%E';
 SELECT CONCAT(first_name, ' ', last_name) AS full_name
 	FROM employees WHERE last_name LIKE 'E%E';
 
-
 -- Convert the names produced in your last query to all uppercase.
 SELECT UPPER(CONCAT(first_name, ' ', last_name)) AS full_name
 	FROM employees WHERE last_name LIKE 'E%E';
@@ -26,7 +25,7 @@ SELECT *, datediff(NOW(),hire_date) AS total_working_days FROM employees
 SELECT MAX(salary), MIN(salary) FROM salaries
 	WHERE to_date > NOW();
 
--- (the below is to include names)
+	-- (the below is to include the names)
 
 SELECT first_name, last_name, salary FROM employees AS e
 JOIN salaries AS s ON s.emp_no = e.emp_no

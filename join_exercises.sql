@@ -121,16 +121,3 @@ CONCAT(e2.first_name, ' ', e2.last_name) AS 'Manager Name'
     WHERE de.to_date > NOW() AND dm.to_date > NOW()
     ORDER BY dept_name, e.emp_no
     ;
-
--- Bonus Who is the highest paid employee within each department.
-
-SELECT e.first_name, e.last_name, max_sal.dept_no, max_sal.max_salary FROM 
-    (SELECT dept_no, de.to_date, MAX(salary) AS max_salary from employees AS e
-	JOIN salaries AS s ON e.emp_no = s.emp_no
-    JOIN dept_emp AS de ON e.emp_no = de.emp_no
-    GROUP BY dept_no, de.to_date
-    ORDER BY dept_no) AS max_sal
-    LEFT JOIN salaries AS s ON max_sal.max_salary = s.salary
-    LEFT JOIN employees AS e ON e.emp_no = s.emp_no
-    WHERE s.to_date > NOW() and max_sal.to_date > NOW()
-    ORDER BY max_sal.dept_no;

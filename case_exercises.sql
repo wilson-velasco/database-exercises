@@ -43,6 +43,16 @@ SELECT first_name, last_name,
         END AS 'alpha_group'
         FROM employees;
         -- COUNT(*) is 300024, which corroborates notes in #1.
+	
+	-- Using regular expressions
+	SELECT first_name, last_name, 
+	CASE
+		WHEN last_name REGEXP'^[a-h]' THEN 'A-H'
+        WHEN last_name REGEXP'^[i-q]' THEN 'I-Q'
+        WHEN last_name REGEXP'^[r-z]' THEN 'R-Z'
+		ELSE 'NA'
+        END AS 'alpha_group'
+        FROM employees;
         
 -- 3. How many employees (current or previous) were born in each decade?
 
