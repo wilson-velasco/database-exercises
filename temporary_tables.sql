@@ -20,6 +20,7 @@ SELECT * FROM pagel_2176.employees_with_departments;
 lengths of the first name and last name columns. */
 
 USE pagel_2176;
+DESCRIBE employees_with_departments;
 ALTER TABLE employees_with_departments ADD full_name VARCHAR(30);
 SELECT MAX(CHAR_LENGTH(first_name) + CHAR_LENGTH(last_name)) FROM employees_with_departments; -- To find value to put in VARCHAR (+1 for space)
 
@@ -47,9 +48,11 @@ the number of cents of the payment. For example, 1.99 should become 199. */
 
 USE sakila;
 CREATE TEMPORARY TABLE pagel_2176.payment AS (
-	SELECT payment_id, customer_id, staff_id, rental_id, REPLACE(amount, '.','') AS amount, payment_date, last_update FROM payment
+	SELECT payment_id, customer_id, staff_id, rental_id, REPLACE(amount, '.','') AS amount_in_pennies, payment_date, last_update FROM payment
     );
-    
+
+ALTER TABLE pagel_2176.payment MODIFY amount_in_pennies INT NOT NULL;
+    DESCRIBE pagel_2176.payment;
 SELECT * FROM pagel_2176.payment;
 
 /* 3. Find out how the current average pay in each department compares to the overall current pay for everyone at the company. 
@@ -71,6 +74,7 @@ SELECT emp_no, dept_name,
 SELECT dept_name, AVG(zscore) AS zscore FROM pagel_2176.zscore
 	GROUP BY dept_name
     ORDER BY zscore DESC; -- BEST Sales, WORST Human Resources
-    
+
+SELECT * FROM pagel_2176.zscore;
 SELECT * FROM employees.departments;
 DROP TABLE pagel_2176.zscore;
